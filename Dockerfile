@@ -1,7 +1,7 @@
 FROM node:lts-buster
 
 # Clone the correct repository
-RUN git clone gh repo clone 92HammadAli/hammad-ali
+RUN git clone git@github.com:92HammadAli/hammad-ali.git
 
 # Set working directory
 WORKDIR /root/hammad-ali
