@@ -1,19 +1,22 @@
 FROM node:lts-buster
 
-# Clone the correct repository
+RUN apt-get update && \
+  apt-get install -y \
+  ffmpeg \
+  imagemagick \
+  webp && \
+  apt-get upgrade -y && \
+  npm i pm2 -g && \
+  rm -rf /var/lib/apt/lists/*
+  
+COPY package.json .
+  
 RUN git clone https://github.com/92HammadAli/hammad-ali.git
 
-# Set working directory
-WORKDIR /root/hammad-ali
+RUN yarn install 
 
-# Install dependencies
-RUN npm install && npm install -g pm2 || yarn install --network-concurrency 1
-
-# Copy your local files into the container
 COPY . .
 
-# Expose the app port
-EXPOSE 9090
+EXPOSE 3000
 
-# Start the app
-CMD ["npm", "start"]
+CMD ["npm","start" ]
